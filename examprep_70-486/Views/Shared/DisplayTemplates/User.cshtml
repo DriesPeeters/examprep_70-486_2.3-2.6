@@ -1,0 +1,35 @@
+﻿@model examprep_70_486.Models.User
+
+@{
+    string allRoles = "";
+    foreach (var role in Model.Roles)
+    {
+        allRoles += role.Name + ", ";
+    }
+    if (allRoles.Contains(","))
+    {
+        allRoles = allRoles.Remove(allRoles.LastIndexOf(","));
+    }
+}
+
+<div style="display:table-row">
+    <h3>@Model.FirstName @Model.MiddleInitial @Model.LastName</h3>
+    <div>
+        <dl class="inline">
+            <dt><strong>Date of Birth</strong></dt>
+            <dd>@Html.DisplayFor(x => x.DateOfBirth)</dd>
+            <dt><strong>Is Admin?</strong></dt>
+            <dd>@(Model.IsAdmin ? "YES" : "NO")</dd>
+            <dt><strong>Username</strong></dt>
+            <dd>@Model.UserName</dd>
+            <dt>Roles</dt>
+            <dd>@(String.IsNullOrWhiteSpace(allRoles) ? "NONE" : allRoles)</dd>
+            <dd>@Html.DisplayFor(x => x.Addresses)</dd>
+            @foreach (var address in Model.Addresses)
+            {
+                <dt>Address</dt>
+                <dd>@Html.DisplayFor(x => address)</dd>
+            }
+        </dl>
+    </div>
+</div> 
